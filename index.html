@@ -123,7 +123,7 @@
     <div id="toast" class="toast">訊息提示</div>
 
     <script>
-        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzfMuA10smQa7I99-vVdQZ2gPQ-tKTzllhY7aI9mkxdBzm9RpE-CnyuK56ceFfqJdh6/exec";
+        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2eryxvIkG_3WxY4dX_r5pAsJyUdDVIghYPtH8Eb0wZ-YFopW48QdgkcPerd1IpV-K/exec";
 
         async function handleAddOrder(e) {
             e.preventDefault();
@@ -143,7 +143,7 @@
                 await fetch(GAS_WEB_APP_URL, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({ name: name, qty: qty })
                 });
 
