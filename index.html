@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>7-11 團購喊單自動統計助手</title>
+    <title>7-11 團購喊單助手</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
-
         body {
             background-color: #f4f5f7;
-            color: #333333;
+            color: #333;
             padding-bottom: 40px;
         }
-
         .navbar {
             background-color: #e2231a;
             color: white;
@@ -29,50 +27,17 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             border-bottom: 4px solid #008054;
         }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .badge-711 {
-            background-color: white;
-            color: #e2231a;
-            font-weight: 900;
-            font-size: 12px;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
         .navbar-title {
             font-size: 17px;
             font-weight: bold;
         }
-
-        .btn-clear {
-            background-color: #b71c1c;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
         .container {
             max-width: 500px;
             margin: 16px auto;
             padding: 0 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
         }
-
         .card {
             background-color: white;
             border-radius: 12px;
@@ -80,42 +45,14 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.08);
             border: 1px solid #e5e7eb;
         }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .card-title {
-            font-size: 15px;
-            font-weight: bold;
-            color: #111827;
-        }
-
-        .sub-text {
-            font-size: 11px;
-            color: #6b7280;
-        }
-
         .input-group-row {
             display: flex;
             gap: 8px;
             width: 100%;
             margin-bottom: 12px;
         }
-
-        .input-name-wrap {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .input-qty-wrap {
-            width: 80px;
-            flex-shrink: 0;
-        }
-
+        .input-name-wrap { flex: 1; }
+        .input-qty-wrap { width: 80px; flex-shrink: 0; }
         .form-input {
             width: 100%;
             padding: 10px 12px;
@@ -125,24 +62,11 @@
             outline: none;
             background-color: #f9fafb;
         }
-
         .form-input:focus {
             border-color: #e2231a;
             background-color: white;
         }
-
-        .text-center {
-            text-align: center;
-        }
-
-        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
-
+        .text-center { text-align: center; }
         .btn-submit {
             width: 100%;
             background-color: #008054;
@@ -154,132 +78,9 @@
             border-radius: 8px;
             cursor: pointer;
         }
-
-        .btn-action {
-            background-color: #1f2937;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
+        .btn-submit:disabled {
+            background-color: #9ca3af;
         }
-
-        .quick-tags-box {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #f3f4f6;
-        }
-
-        .quick-tags-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 6px;
-        }
-
-        .tag-btn {
-            background-color: #f3f4f6;
-            color: #374151;
-            border: 1px solid #e5e7eb;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 12px;
-            background-color: #f9fafb;
-            border-radius: 8px;
-            border: 1px solid #f3f4f6;
-            margin-bottom: 8px;
-        }
-
-        .item-name {
-            font-weight: bold;
-            font-size: 15px;
-            color: #111827;
-        }
-
-        .item-qty-badge {
-            background-color: #e2231a;
-            color: white;
-            font-weight: bold;
-            font-size: 14px;
-            padding: 2px 10px;
-            border-radius: 6px;
-            min-width: 36px;
-            text-align: center;
-        }
-
-        .total-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 12px;
-            margin-top: 8px;
-            border-top: 2px solid #e5e7eb;
-            font-weight: bold;
-            font-size: 15px;
-        }
-
-        .total-qty {
-            color: #e2231a;
-            font-size: 17px;
-        }
-
-        .empty-tip {
-            text-align: center;
-            color: #9ca3af;
-            font-size: 14px;
-            padding: 24px 0;
-        }
-
-        .history-header {
-            width: 100%;
-            background: none;
-            border: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            font-size: 14px;
-            color: #374151;
-            cursor: pointer;
-        }
-
-        .history-list {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #e5e7eb;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .history-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 6px 0;
-            border-bottom: 1px solid #f3f4f6;
-            font-size: 13px;
-        }
-
-        .btn-del {
-            color: #ef4444;
-            background: none;
-            border: none;
-            font-size: 16px;
-            font-weight: bold;
-            padding: 2px 8px;
-            cursor: pointer;
-        }
-
         .toast {
             position: fixed;
             bottom: 20px;
@@ -290,304 +91,71 @@
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 13px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             opacity: 0;
-            pointer-events: none;
             transition: opacity 0.3s;
-            z-index: 999;
+            pointer-events: none;
         }
-
-        .toast.show {
-            opacity: 1;
-        }
+        .toast.show { opacity: 1; }
     </style>
 </head>
 <body>
 
     <div class="navbar">
-        <div class="brand">
-            <span class="badge-711">7-11</span>
-            <span class="navbar-title">團購喊單統計助手</span>
-        </div>
-        <button onclick="clearAllData()" class="btn-clear">清空全部</button>
+        <span class="navbar-title">7-11 團購快速喊單</span>
     </div>
 
     <div class="container">
-
         <div class="card">
-            <div class="card-header">
-                <span class="card-title">快速喊單登記</span>
-                <span class="sub-text">輸入完可按 Enter 送出</span>
-            </div>
-
             <form id="orderForm" onsubmit="handleAddOrder(event)">
                 <div class="input-group-row">
                     <div class="input-name-wrap">
-                        <input type="text" id="itemName" placeholder="商品名稱 (例如: 咖啡)" required autocomplete="off" class="form-input">
+                        <input type="text" id="itemName" placeholder="商品名稱" required autocomplete="off" class="form-input">
                     </div>
                     <div class="input-qty-wrap">
                         <input type="number" id="itemQty" value="1" min="1" required class="form-input text-center">
                     </div>
                 </div>
-                <button type="submit" class="btn-submit">＋ 加入統計</button>
+                <button type="submit" id="submitBtn" class="btn-submit">＋ 送出喊單</button>
             </form>
-
-            <div id="quickTagsContainer" class="quick-tags-box" style="display: none;">
-                <div class="sub-text">最近喊過 (點擊快速填入)：</div>
-                <div id="quickTags" class="quick-tags-list"></div>
-            </div>
         </div>
-
-        <div class="card">
-            <div class="card-header">
-                <div>
-                    <span class="card-title">自動統計清單</span>
-                    <span id="totalItemsBadge" style="font-size: 12px; background:#fee2e2; color:#dc2626; padding:2px 6px; border-radius:10px; margin-left:6px; font-weight:bold;">0 種商品</span>
-                </div>
-                <button onclick="copySummaryText()" class="btn-action">複製統計文案</button>
-            </div>
-
-            <div id="summaryList">
-                <div class="empty-tip">目前尚無喊單資料，請在上方輸入商品與數量。</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <button onclick="toggleHistory()" class="history-header">
-                <span>喊單詳細紀錄 (<span id="historyCount">0</span> 筆)</span>
-                <span id="historyArrow">▼ 展開</span>
-            </button>
-            <div id="historyContent" class="history-list" style="display: none;"></div>
-        </div>
-
     </div>
 
     <div id="toast" class="toast">訊息提示</div>
 
     <script>
-        let orders = [];
-        let recentItems = new Set();
+        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2eryxvIkG_3WxY4dX_r5pAsJyUdDVIghYPtH8Eb0wZ-YFopW48QdgkcPerd1IpV-K/exec";
 
-        const itemNameInput = document.getElementById('itemName');
-        const itemQtyInput = document.getElementById('itemQty');
-
-        window.onload = function() {
-            loadData();
-            updateUI();
-        };
-
-        function loadData() {
-            const dataStr = localStorage.getItem('711_group_orders_gh');
-            if (dataStr) {
-                try {
-                    orders = JSON.parse(dataStr);
-                    orders.forEach(o => recentItems.add(o.name));
-                } catch(e) {
-                    orders = [];
-                }
-            }
-        }
-
-        function saveData() {
-            localStorage.setItem('711_group_orders_gh', JSON.stringify(orders));
-        }
-
-        function handleAddOrder(e) {
+        async function handleAddOrder(e) {
             e.preventDefault();
-            const name = itemNameInput.value.trim();
-            const qty = parseInt(itemQtyInput.value, 10);
+            const submitBtn = document.getElementById('submitBtn');
+            const nameInput = document.getElementById('itemName');
+            const qtyInput = document.getElementById('itemQty');
 
-            if (!name || isNaN(qty) || qty <= 0) {
-                showToast('請輸入正確的商品名稱與數量');
-                return;
-            }
+            const name = nameInput.value.trim();
+            const qty = parseInt(qtyInput.value, 10);
 
-            const newOrder = {
-                id: Date.now(),
-                name: name,
-                qty: qty,
-                time: new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })
-            };
+            if (!name || isNaN(qty) || qty <= 0) return;
 
-            orders.unshift(newOrder);
-            recentItems.add(name);
+            submitBtn.disabled = true;
+            submitBtn.innerText = '傳送中...';
 
-            saveData();
-            updateUI();
-            showToast(`已新增：${name} +${qty}`);
-
-            itemNameInput.value = '';
-            itemQtyInput.value = '1';
-            itemNameInput.focus();
-        }
-
-        function updateUI() {
-            renderSummary();
-            renderHistory();
-            renderQuickTags();
-        }
-
-        function renderSummary() {
-            const summaryList = document.getElementById('summaryList');
-            const totalItemsBadge = document.getElementById('totalItemsBadge');
-
-            const summaryMap = {};
-            orders.forEach(item => {
-                summaryMap[item.name] = (summaryMap[item.name] || 0) + item.qty;
-            });
-
-            const keys = Object.keys(summaryMap);
-            totalItemsBadge.innerText = `${keys.length} 種商品`;
-
-            if (keys.length === 0) {
-                summaryList.innerHTML = `<div class="empty-tip">目前尚無喊單資料，請在上方輸入商品與數量。</div>`;
-                return;
-            }
-
-            let html = '';
-            let totalQtySum = 0;
-
-            keys.forEach(name => {
-                const qty = summaryMap[name];
-                totalQtySum += qty;
-                html += `
-                    <div class="summary-item">
-                        <span class="item-name">${escapeHtml(name)}</span>
-                        <div style="display:flex; align-items:center; gap:6px;">
-                            <span style="font-size:12px; color:#6b7280;">數量</span>
-                            <span class="item-qty-badge">${qty}</span>
-                        </div>
-                    </div>
-                `;
-            });
-
-            html += `
-                <div class="total-row">
-                    <span>總喊單件數小計</span>
-                    <span class="total-qty">${totalQtySum} 件</span>
-                </div>
-            `;
-
-            summaryList.innerHTML = html;
-        }
-
-        function renderHistory() {
-            const historyContent = document.getElementById('historyContent');
-            const historyCount = document.getElementById('historyCount');
-
-            historyCount.innerText = orders.length;
-
-            if (orders.length === 0) {
-                historyContent.innerHTML = `<div style="text-align:center; color:#9ca3af; font-size:12px; padding:12px 0;">暫無明細紀錄</div>`;
-                return;
-            }
-
-            let html = '';
-            orders.forEach(item => {
-                html += `
-                    <div class="history-item">
-                        <div>
-                            <div style="font-weight:bold; color:#111827;">${escapeHtml(item.name)}</div>
-                            <div style="font-size:10px; color:#9ca3af;">${item.time}</div>
-                        </div>
-                        <div style="display:flex; align-items:center; gap:8px;">
-                            <span style="font-weight:bold; font-size:14px; color:#111827;">+${item.qty}</span>
-                            <button onclick="deleteSingleOrder(${item.id})" class="btn-del">✕</button>
-                        </div>
-                    </div>
-                `;
-            });
-
-            historyContent.innerHTML = html;
-        }
-
-        function renderQuickTags() {
-            const quickTagsContainer = document.getElementById('quickTagsContainer');
-            const quickTags = document.getElementById('quickTags');
-
-            if (recentItems.size === 0) {
-                quickTagsContainer.style.display = 'none';
-                return;
-            }
-
-            quickTagsContainer.style.display = 'block';
-            let html = '';
-            Array.from(recentItems).slice(-8).reverse().forEach(name => {
-                html += `
-                    <button type="button" onclick="fillItemName('${escapeHtml(name)}')" class="tag-btn">
-                        + ${escapeHtml(name)}
-                    </button>
-                `;
-            });
-            quickTags.innerHTML = html;
-        }
-
-        function fillItemName(name) {
-            itemNameInput.value = name;
-            itemQtyInput.focus();
-            itemQtyInput.select();
-        }
-
-        function deleteSingleOrder(id) {
-            orders = orders.filter(o => o.id !== id);
-            saveData();
-            updateUI();
-            showToast('已刪除該筆紀錄');
-        }
-
-        function clearAllData() {
-            if (orders.length === 0) return;
-            if (confirm('確定要清空所有喊單紀錄與統計嗎？')) {
-                orders = [];
-                recentItems.clear();
-                localStorage.removeItem('711_group_orders_gh');
-                updateUI();
-                showToast('已清空所有資料');
-            }
-        }
-
-        function copySummaryText() {
-            const summaryMap = {};
-            orders.forEach(item => {
-                summaryMap[item.name] = (summaryMap[item.name] || 0) + item.qty;
-            });
-
-            const keys = Object.keys(summaryMap);
-            if (keys.length === 0) {
-                showToast('目前沒有可以複製的統計資料');
-                return;
-            }
-
-            let text = `📦【7-11 團購喊單統計】\n------------------\n`;
-            let total = 0;
-            keys.forEach(name => {
-                text += `${name}：${summaryMap[name]} 件\n`;
-                total += summaryMap[name];
-            });
-            text += `------------------\n總計：${total} 件`;
-
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            document.body.appendChild(textArea);
-            textArea.select();
             try {
-                document.execCommand('copy');
-                showToast('已複製統計清單至剪貼簿！');
-            } catch (err) {
-                showToast('複製失敗');
-            }
-            document.body.removeChild(textArea);
-        }
+                await fetch(GAS_WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name, qty: qty })
+                });
 
-        function toggleHistory() {
-            const content = document.getElementById('historyContent');
-            const arrow = document.getElementById('historyArrow');
-            if (content.style.display === 'none') {
-                content.style.display = 'block';
-                arrow.innerText = '▲ 收起';
-            } else {
-                content.style.display = 'none';
-                arrow.innerText = '▼ 展開';
+                showToast(`已登記：${name} +${qty}`);
+                nameInput.value = '';
+                qtyInput.value = '1';
+                nameInput.focus();
+            } catch (error) {
+                showToast('送出失敗，請檢查網路連線');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = '＋ 送出喊單';
             }
         }
 
@@ -595,18 +163,7 @@
             const toast = document.getElementById('toast');
             toast.innerText = msg;
             toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2000);
-        }
-
-        function escapeHtml(str) {
-            return str
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+            setTimeout(() => toast.classList.remove('show'), 2000);
         }
     </script>
 </body>
